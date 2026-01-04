@@ -14,6 +14,17 @@ if (session_status() === PHP_SESSION_NONE) {
         <li class="nav-item">
           <a class="nav-link active" href="welcome.php">Home</a>
         </li>
+
+        <?php if ($_SESSION['role'] === 'employer'): ?>
+          <li class="nav-item"><a class="nav-link" href="post_job.php">Post Job</a></li>
+          <li class="nav-item"><a class="nav-link" href="view_application.php">Applications</a></li>
+          <li class="nav-item"><a class="nav-link" href="employer_payments.php">Payments</a></li>
+        <?php elseif ($_SESSION['role'] === 'worker'): ?>
+          <li class="nav-item"><a class="nav-link" href="apply_job.php">Find Jobs</a></li>
+          <li class="nav-item"><a class="nav-link" href="applications.php">My Applications</a></li>
+          <li class="nav-item"><a class="nav-link" href="worker_payments.php">My Payments</a></li>
+        <?php endif; ?>
+
       <?php endif; ?>
     </ul>
 

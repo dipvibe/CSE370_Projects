@@ -1,9 +1,31 @@
 body {    
-  background-color: #000000; /* solid black background */
+  background-color: #ffffff; /* White background */
   background-repeat: no-repeat;
   background-size: cover;
   width: 100vw;
   height: 100vh;
+  color: #333;
+}
+
+.auth-body {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('assets/hero.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.dashboard-hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('assets/after_login.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
 }
 
 .navbar-brand {
@@ -16,8 +38,9 @@ body {
   border-radius: 6px;
   margin: 120px auto;
   padding: 40px;
-  box-shadow: 10px 10px 5px rgb(80, 11, 77);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   margin-top: 25px;
+  border: 1px solid #eee;
 }
 
 h1 {
@@ -70,4 +93,124 @@ form label {
   }
 }
 
-  
+/* HERO SECTION */
+.hero {
+  width: 100%;
+  height: 85vh;
+  /* Layered backgrounds: 
+     1. White fade at the bottom
+     2. Dark tint for text readability
+     3. The actual image 
+  */
+  background-image: 
+    linear-gradient(to bottom, rgba(255,255,255,0) 95%, #ffffff 100%),
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url("assets/hero.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero-overlay {
+  width: 100%;
+  height: 100%;
+  /* background: rgba(0, 0, 0, 0.55);  <-- Removed, now handled in .hero */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 15%;
+}
+
+.hero-overlay h1 {
+  color: white;
+  font-size: 44px;
+  margin-bottom: 10px;
+}
+
+.hero-overlay p {
+  color: #ddd;
+  font-size: 18px;
+}
+
+/* ABOUT SECTION */
+.about-section {
+  padding: 60px 15%;
+  background: #f8f9fa; /* Light gray */
+  color: #333;
+  text-align: center;
+}
+
+.about-section h2 {
+  color: #222;
+  margin-bottom: 20px;
+}
+
+.about-section h3 {
+  margin-top: 40px;
+  color: #444;
+}
+
+.service-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.service-list li {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border: 1px solid #eee;
+}
+
+/* STATISTICS */
+.stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 60px 20px;
+  background: #ffffff;
+  color: #333;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.stat-box {
+  text-align: center;
+}
+
+.stat-box h2 {
+  font-size: 36px;
+  color: #6c16be; /* Keep purple brand color */
+}
+
+/* FOOTER */
+.footer {
+  background: #f1f1f1;
+  color: #555;
+  padding: 10px 15px;
+  text-align: center;
+}
+
+.footer strong {
+  color: #333;
+}
+
+.footer p {
+  margin: 6px 0;
+}
+
+.footer a {
+  color: #6c16be;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}

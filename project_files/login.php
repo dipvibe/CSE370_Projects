@@ -14,13 +14,20 @@ if (isset($_POST['login'])) {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT user_id, name, password, role FROM General_User WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // 1. Escape the email to prevent SQL injection
+    $safe_email = mysqli_real_escape_string($conn, $email);
 
-    if ($result->num_rows === 1) {
-        $row = $result->fetch_assoc();
+    // 2. Create the query string
+    $sql = "SELECT user_id, name, password, role FROM General_User WHERE email = '$safe_email'";
+    
+    // 3. Run the query
+    $result = mysqli_query($conn, $sql);
+
+    // 4. Check if user exists
+    if (mysqli_num_rows($result) === 1) {
+        $row = mysqli_fetch_assoc($result);
+        
+        // 5. Verify password
         if (password_verify($password, $row['password'])) {
             // Login success
             $_SESSION['loggedin'] = true;
@@ -51,7 +58,7 @@ if (isset($_POST['login'])) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="auth-body">
 
 <?php include "navbar.php"; ?>
 

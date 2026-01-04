@@ -2,6 +2,7 @@
 include "auth.php";
 include "connection.php";
 
+// Only employers can post jobs
 if ($_SESSION['role'] !== 'employer') {
     header("Location: welcome.php");
     exit;
@@ -10,45 +11,79 @@ if ($_SESSION['role'] !== 'employer') {
 $msg = "";
 
 if (isset($_POST['submit'])) {
-    $salary   = $_POST['salary'];
-    $workType = $_POST['work_type'];
-    $schedule = $_POST['schedule'];
-    $area     = $_POST['area'];
-    $houseNo  = $_POST['house_no'];
+    $salary   = mysqli_real_escape_string($conn, $_POST['salary']);
+    $workType = mysqli_real_escape_string($conn, $_POST['work_type']);
+    $schedule = mysqli_real_escape_string($conn, $_POST['schedule']);
+    $area     = mysqli_real_escape_string($conn, $_POST['area']);
+    $houseNo  = mysqli_real_escape_string($conn, $_POST['house_no']);
+    $employer_id = $_SESSION['user_id'];
 
-    $stmt = $conn->prepare(
-        "INSERT INTO Job_List
-        (employer_id, salary_offer, work_type, schedule, area, house_no)
-        VALUES (?, ?, ?, ?, ?, ?)"
-    );
-    $stmt->bind_param(
-        "idssss",
-        $_SESSION['user_id'],
-        $salary,
-        $workType,
-        $schedule,
-        $area,
-        $houseNo
-    );
+    $sql = "INSERT INTO Job_List (employer_id, salary_offer, work_type, schedule, area, house_no) 
+            VALUES ('$employer_id', '$salary', '$workType', '$schedule', '$area', '$houseNo')";
 
-    if ($stmt->execute()) {
+    if (mysqli_query($conn, $sql)) {
         $msg = "Job posted successfully!";
+    } else {
+        $msg = "Error: " . mysqli_error($conn);
     }
 }
 ?>
 
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Post a Job</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
 <?php include "navbar.php"; ?>
 
-<h2>Post a Job</h2>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Post a New Job</h3>
+                </div>
+                <div class="card-body">
+                    <?php if ($msg): ?>
+                        <div class="alert alert-success"><?php echo $msg; ?></div>
+                    <?php endif; ?>
 
-<?php if ($msg): ?><p style="color:green"><?= $msg ?></p><?php endif; ?>
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Salary Offer</label>
+                            <input type="number" step="0.01" name="salary" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Work Type</label>
+                            <input type="text" name="work_type" class="form-control" required placeholder="e.g. Cleaning, Cooking">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Schedule</label>
+                            <input type="text" name="schedule" class="form-control" placeholder="e.g. 9 AM - 5 PM">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Area</label>
+                            <input type="text" name="area" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">House No / Address</label>
+                            <input type="text" name="house_no" class="form-control">
+                        </div>
 
-<form method="POST">
-    Salary: <input type="number" step="0.01" name="salary" required><br><br>
-    Work Type: <input type="text" name="work_type" required><br><br>
-    Schedule: <input type="text" name="schedule"><br><br>
-    Area: <input type="text" name="area" required><br><br>
-    House No: <input type="text" name="house_no"><br><br>
+                        <button type="submit" name="submit" class="btn btn-primary w-100">Post Job</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <button type="submit" name="submit">Post Job</button>
-</form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
