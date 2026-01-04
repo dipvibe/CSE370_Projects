@@ -61,7 +61,22 @@ if (isset($_POST['submit'])) {
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Work Type</label>
-                            <input type="text" name="work_type" class="form-control" required placeholder="e.g. Cleaning, Cooking">
+                            <select name="work_type" class="form-select" required>
+                                <option value="">Select Work Type</option>
+                                <option value="House Helper / Maid">House Helper / Maid</option>
+                                <option value="Cook / Home Chef">Cook / Home Chef</option>
+                                <option value="Driver">Driver</option>
+                                <option value="Gardener / Mali">Gardener / Mali</option>
+                                <option value="Babysitter / Nanny">Babysitter / Nanny</option>
+                                <option value="Elderly Caretaker">Elderly Caretaker</option>
+                                <option value="Home Nurse (Basic Care)">Home Nurse (Basic Care)</option>
+                                <option value="Cleaner (Deep Cleaning)">Cleaner (Deep Cleaning)</option>
+                                <option value="Electrician">Electrician</option>
+                                <option value="Plumber">Plumber</option>
+                                <option value="AC / Appliance Technician">AC / Appliance Technician</option>
+                                <option value="Laundry & Iron Service">Laundry & Iron Service</option>
+                                <option value="Security Guard">Security Guard</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Schedule</label>
