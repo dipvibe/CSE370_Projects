@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $user = "root";
-$pass = "";
+$pass = "root"; // <--- Update this to match your MySQL password
 
 // Create connection without database first
 $conn = new mysqli($host, $user, $pass);
