@@ -1,4 +1,5 @@
-CREATE DATABASE IF NOT EXISTS house_hold_network;
+DROP DATABASE IF EXISTS house_hold_network;
+CREATE DATABASE house_hold_network;
 USE house_hold_network;
 
 -- 1. General User Table
@@ -8,9 +9,7 @@ CREATE TABLE IF NOT EXISTS General_User (
     email VARCHAR(100) NOT NULL UNIQUE,
     address VARCHAR(255),
     password VARCHAR(255) NOT NULL,
-    role ENUM('worker', 'employer', 'administrator') NOT NULL,
-    verification_token VARCHAR(255) NULL,
-    is_verified TINYINT(1) DEFAULT 0
+    role ENUM('worker', 'employer', 'administrator') NOT NULL
 );
 
 -- 2. Role Specific Tables
